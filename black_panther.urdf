@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8>
+<robot name="black_panther_2">
+
+  <material name="dark_grey"><color rgba="0.2 0.2 0.2 1.0"/></material>
+  <material name="black"><color rgba="0.05 0.05 0.05 1.0"/></material>
+  <material name="red"><color rgba="0.8 0.1 0.1 1.0"/></material>
+
+  <!-- Rumpf -->
+  <link name="base_link">
+    <visual>
+      <geometry><box size="0.6 0.3 0.12"/></geometry>
+      <material name="dark_grey"/>
+    </visual>
+    <collision>
+      <geometry><box size="0.6 0.3 0.12"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="16.0"/>
+      <inertia ixx="0.12" ixy="0.0" ixz="0.0" iyy="0.45" iyz="0.0" izz="0.45"/>
+    </inertial>
+  </link>
+
+  <!-- Makro für die Beine um Redundanz zu vermeiden -->
+  <!-- Parameter: Name, X-Position, Y-Position -->
+  
+  <!-- FRONT RIGHT (FR) -->
+  <joint name="FR_abad_joint" type="revolute">
+    <parent link="base_link"/><child link="FR_abad_link"/>
+    <origin xyz="0.25 -0.12 0"/><axis xyz="1 0 0"/>
+    <limit effort="136" lower="-1.57" upper="1.57" velocity="20"/>
+  </joint>
+  <link name="FR_abad_link"><inertial><mass value="1.2"/><inertia ixx="0.01" iyy="0.01" izz="0.01"/></inertial></link>
+
+  <joint name="FR_hip_joint" type="revolute">
+    <parent link="FR_abad_link"/><child link="FR_upper_leg"/>
+    <origin xyz="0 -0.08 0"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="-3.14" upper="3.14" velocity="20"/>
+  </joint>
+  <link name="FR_upper_leg">
+    <visual><origin xyz="0 0 -0.14"/><geometry><box size="0.04 0.04 0.28"/></geometry><material name="black"/></visual>
+    <inertial><mass value="1.8"/><inertia ixx="0.015" iyy="0.015" izz="0.004"/></inertial>
+  </link>
+
+  <joint name="FR_knee_joint" type="revolute">
+    <parent link="FR_upper_leg"/><child link="FR_lower_leg"/>
+    <origin xyz="0 0 -0.28"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="0.35" upper="2.6" velocity="20"/>
+  </joint>
+  <link name="FR_lower_leg">
+    <visual><origin xyz="0 0 -0.15"/><geometry><cylinder length="0.3" radius="0.015"/></geometry><material name="dark_grey"/></visual>
+    <collision><origin xyz="0 0 -0.3"/><geometry><sphere radius="0.025"/></geometry></collision>
+    <inertial><mass value="1.0"/><inertia ixx="0.01" iyy="0.01" izz="0.001"/></inertial>
+  </link>
+
+  <!-- FRONT LEFT (FL) -->
+  <joint name="FL_abad_joint" type="revolute">
+    <parent link="base_link"/><child link="FL_abad_link"/>
+    <origin xyz="0.25 0.12 0"/><axis xyz="1 0 0"/>
+    <limit effort="136" lower="-1.57" upper="1.57" velocity="20"/>
+  </joint>
+  <link name="FL_abad_link"><inertial><mass value="1.2"/><inertia ixx="0.01" iyy="0.01" izz="0.01"/></inertial></link>
+
+  <joint name="FL_hip_joint" type="revolute">
+    <parent link="FL_abad_link"/><child link="FL_upper_leg"/>
+    <origin xyz="0 0.08 0"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="-3.14" upper="3.14" velocity="20"/>
+  </joint>
+  <link name="FL_upper_leg">
+    <visual><origin xyz="0 0 -0.14"/><geometry><box size="0.04 0.04 0.28"/></geometry><material name="black"/></visual>
+    <inertial><mass value="1.8"/><inertia ixx="0.015" iyy="0.015" izz="0.004"/></inertial>
+  </link>
+
+  <joint name="FL_knee_joint" type="revolute">
+    <parent link="FL_upper_leg"/><child link="FL_lower_leg"/>
+    <origin xyz="0 0 -0.28"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="0.35" upper="2.6" velocity="20"/>
+  </joint>
+  <link name="FL_lower_leg">
+    <visual><origin xyz="0 0 -0.15"/><geometry><cylinder length="0.3" radius="0.015"/></geometry><material name="dark_grey"/></visual>
+    <collision><origin xyz="0 0 -0.3"/><geometry><sphere radius="0.025"/></geometry></collision>
+    <inertial><mass value="1.0"/><inertia ixx="0.01" iyy="0.01" izz="0.001"/></inertial>
+  </link>
+
+  <!-- REAR RIGHT (RR) -->
+  <joint name="RR_abad_joint" type="revolute">
+    <parent link="base_link"/><child link="RR_abad_link"/>
+    <origin xyz="-0.25 -0.12 0"/><axis xyz="1 0 0"/>
+    <limit effort="136" lower="-1.57" upper="1.57" velocity="20"/>
+  </joint>
+  <link name="RR_abad_link"><inertial><mass value="1.2"/><inertia ixx="0.01" iyy="0.01" izz="0.01"/></inertial></link>
+
+  <joint name="RR_hip_joint" type="revolute">
+    <parent link="RR_abad_link"/><child link="RR_upper_leg"/>
+    <origin xyz="0 -0.08 0"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="-3.14" upper="3.14" velocity="20"/>
+  </joint>
+  <link name="RR_upper_leg">
+    <visual><origin xyz="0 0 -0.14"/><geometry><box size="0.04 0.04 0.28"/></geometry><material name="black"/></visual>
+    <inertial><mass value="1.8"/><inertia ixx="0.015" iyy="0.015" izz="0.004"/></inertial>
+  </link>
+
+  <joint name="RR_knee_joint" type="revolute">
+    <parent link="RR_upper_leg"/><child link="RR_lower_leg"/>
+    <origin xyz="0 0 -0.28"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="0.35" upper="2.6" velocity="20"/>
+  </joint>
+  <link name="RR_lower_leg">
+    <visual><origin xyz="0 0 -0.15"/><geometry><cylinder length="0.3" radius="0.015"/></geometry><material name="dark_grey"/></visual>
+    <collision><origin xyz="0 0 -0.3"/><geometry><sphere radius="0.025"/></geometry></collision>
+    <inertial><mass value="1.0"/><inertia ixx="0.01" iyy="0.01" izz="0.001"/></inertial>
+  </link>
+
+  <!-- REAR LEFT (RL) -->
+  <joint name="RL_abad_joint" type="revolute">
+    <parent link="base_link"/><child link="RL_abad_link"/>
+    <origin xyz="-0.25 0.12 0"/><axis xyz="1 0 0"/>
+    <limit effort="136" lower="-1.57" upper="1.57" velocity="20"/>
+  </joint>
+  <link name="RL_abad_link"><inertial><mass value="1.2"/><inertia ixx="0.01" iyy="0.01" izz="0.01"/></inertial></link>
+
+  <joint name="RL_hip_joint" type="revolute">
+    <parent link="RL_abad_link"/><child link="RL_upper_leg"/>
+    <origin xyz="0 0.08 0"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="-3.14" upper="3.14" velocity="20"/>
+  </joint>
+  <link name="RL_upper_leg">
+    <visual><origin xyz="0 0 -0.14"/><geometry><box size="0.04 0.04 0.28"/></geometry><material name="black"/></visual>
+    <inertial><mass value="1.8"/><inertia ixx="0.015" iyy="0.015" izz="0.004"/></inertial>
+  </link>
+
+  <joint name="RL_knee_joint" type="revolute">
+    <parent link="RL_upper_leg"/><child link="RL_lower_leg"/>
+    <origin xyz="0 0 -0.28"/><axis xyz="0 1 0"/>
+    <limit effort="136" lower="0.35" upper="2.6" velocity="20"/>
+  </joint>
+  <link name="RL_lower_leg">
+    <visual><origin xyz="0 0 -0.15"/><geometry><cylinder length="0.3" radius="0.015"/></geometry><material name="dark_grey"/></visual>
+    <collision><origin xyz="0 0 -0.3"/><geometry><sphere radius="0.025"/></geometry></collision>
+    <inertial><mass value="1.0"/><inertia ixx="0.01" iyy="0.01" izz="0.001"/></inertial>
+  </link>
+
+</robot>
